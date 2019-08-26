@@ -3,7 +3,7 @@ const helmet = require("helmet");
 const jwt = require("jsonwebtoken");
 
 // const authenticate = require("../auth/authenticate-middleware.js");
-const authRouter = require("../project/authRouter")
+const authRouter = require("./routes/authRouter")
 
 
 const server = express();
