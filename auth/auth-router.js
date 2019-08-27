@@ -2,16 +2,26 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const prisonersDb = require("../../models/prisonersModel")
-const secrets = require("../../config/secrets");
+const usersDb = require("../users/users-model");
+const secrets = require("../config/secrets");
 
+router.get("/users", (req, res) => {
+  usersDb
+    .find()
+    .then(users => {
+      res.status(200).json(users);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
 
 router.post("/register", (req, res) => {
-	  let user = req.body;
-    const hash = bcrypt.hashSync(user.password);
-    user.password = hash;
+  let user = req.body;
+  const hash = bcrypt.hashSync(user.password);
+  user.password = hash;
 
-  prisonersDb
+  usersDb
     .add(user)
     .then(saved => {
       res.status(201).json(saved);
@@ -22,10 +32,10 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  let { username, password, address, name } = req.body;
+  let { username, password } = req.body;
 
-  prisonersDb
-    .findBy(username)
+  usersDb
+    .findByUsername(username)
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = getJwt(user);
@@ -44,16 +54,16 @@ router.post("/login", (req, res) => {
 });
 
 function getJwt(user) {
-  const payload = {
-    subject: user.id,
-    username: user.username
-  };
+	const payload = {
+		subject: user.id,
+		username: user.username
+	}
 
-  const options = {
-    expiresIn: "8h"
-  };
+	const options = {
+		expiresIn: '8h'
+	}
 
-  return jwt.sign(payload, secrets.jwtSecret, options);
+	return jwt.sign(payload, secrets.jwtSecret, options);
 }
 
 
