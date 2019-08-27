@@ -24,7 +24,12 @@ router.post("/register", (req, res) => {
   usersDb
     .add(user)
     .then(saved => {
-      res.status(201).json(saved);
+      const token = getJwt(user);
+      res.status(201).json({
+        saved,
+        message: `${saved.username}`,
+        token
+      });
     })
     .catch(error => {
       res.status(500).json(error);
@@ -54,17 +59,16 @@ router.post("/login", (req, res) => {
 });
 
 function getJwt(user) {
-	const payload = {
-		subject: user.id,
-		username: user.username
-	}
+  const payload = {
+    subject: user.id,
+    username: user.username
+  };
 
-	const options = {
-		expiresIn: '8h'
-	}
+  const options = {
+    expiresIn: "8h"
+  };
 
-	return jwt.sign(payload, secrets.jwtSecret, options);
+  return jwt.sign(payload, secrets.jwtSecret, options);
 }
-
 
 module.exports = router;
