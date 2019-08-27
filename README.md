@@ -11,38 +11,59 @@
 | [POST Registration](#post-registration) | `/api/auth/register` |
 | [POST Login](#post-login)               | `/api/auth/login`    |
 | [GET Prisons](#get-prisons)               | `/api/prisons`    |
+| [GET Prisons by ID](#get-prisons-by-id)               | `/api/prisons/:id`    |
+| [GET Prisoners](#get-prisoners)               | `/api/prisoners`    |
+| [GET Prisoners by ID](#get-prisoners-by-id)               | `/api/prisoners/:id`    |
+| [GET Prisons](#get-prisons)               | `/api/prisons`    |
+| [GET Skills by Prisoner ID](#get-prisoners-by-skill)               | `/api/prisoners/:id/skills`    |
+
+
+#### AUTH ENDPOINTS
+
+#### All Endpoints below require a token!
+
+| Links                                             | Endpoints           |
+| ------------------------------------------------- | ------------------- |
+| [POST Prisoners](#post-prisoners)               | `/api/prisoners`    |
+| [PUT Prisoner by ID](#put-prisoner)         | `/api/prisoners/:id`    |  |
+| [DEL Prisoner by ID](#del-prisoner)         | `/api/prisoners/:id`    |  |
+| [POST Prison](#post-prisons)       | `/api/prisons/`  |
+| [PUT Prison by ID](#put-prison)                         | `/api/prisons/:id`       |
+| [DEL Prison by ID](#del-prison)         | `/api/prison/:id`    |  |
+| [POST Skills by Prisoner ID](#post-skills-by-id)             | `/api/prisoners/:id/skills`   |
+| [PUT Skills by Pirsoner ID](#put-skills-by-id)                       | `/api/prisoners/:id/skills`       |
+| [DEL Skills by Prisoner ID](#del-skills-by-id)                 | `/api/prisoners/:id/`    |
 
 ### [POST] Registration
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/register
 
-Payload: an object with the following, email is required for login.
 
 ```
 {
-	"username": "janedoe@gmail.com",
+	"username": "janedoe1",
 	"password": "DoePass"
 }
 ```
 
-Returns: an object with user id, username, password, and email. Password will be hashed.
+Returns id, username, and hashed password: 
 
 ```
 {
     "id": 1,
-    "username": "janedoe@gmail.com",
+    "username": "janedoe1",
     "password": "hashed"
 }
 ```
 
 ### [POST] Login
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/login
 
 
 ```
 {
-	"username": "janedoe@gmail.com",
+	"username": "janedoe1",
 	"password": "DoePass"
 }
 ```
@@ -77,28 +98,6 @@ Returns:
 
 ---
 
-#### AUTH ENDPOINTS
-
-#### All Endpoints below require a token!
-
-| Links                                             | Endpoints           |
-| ------------------------------------------------- | ------------------- |
-| [GET All Prisoners](#get-prisoners)               | `/api/prisoners`    |
-| [GET Prisoner by ID](#get-prisoner-by-id)         | `/api/prisoners/:id`    |  |
-| [GET Prisons by ID](#get-prisons-log-by-id)       | `/api/prisons/:id`  |
-| [GET Skills](#get-skills)                         | `/api/skills`       |
-| [GET Skills by ID](#get-skills-by-id)             | `/api/skills/:id`   |
-| [POST Skills](#post-skills)                       | `/api/skills`       |
-| [POST Prisoners](#post-prisoners)                 | `/api/prisoners`    |
-| [POST Prisons](#post-prisons)                     | `/api/prisons`      |
-| [PUT Skills(Update) By ID](#put-skills-by-id)     | `/api/skills/:id`   |
-| [PUT Prisoner(Update) By ID](#put-prisoner-by-id) | `/api/prisoner/:id` |
-| [PUT Prisons(Update) By ID](#put-prisons-by-id)   | `/api/prisons/:id`  |
-| [DEL Skills By ID](#del-skills-by-id)             | `/api/skills/:id`   |
-| [DEL Prisoner by ID](#del-prisoner-by-id)         | `/api/prisoner/:id` |
-| [DEL Prison by ID](#del-prison-by-id)             | `/api/prison/:id`   |
-
-
 
 ### [GET] Prisons By ID
 
@@ -106,14 +105,22 @@ Returns:
 
 ```
    {
-	id: integer,
-	address: string,
+	prison_id: integer,
 	name: string,
+	address: string
 	prisoners: [
 		{
-			id: integer,
+			prisoner_id: integer,
 			name: string,
-			canHaveWorkLeave: boolean //0 - false, 1 - true
+			gender: string,
+			prison_id: integer,
+			canHaveWorkLeave: boolean //0 - false, 1 - true,
+			skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
+
 		},
 		.
 		.
@@ -130,10 +137,9 @@ Returns:
 
 ```
 {
-	username: string,
-	address: string,
+	prison_id: integer,
 	name: string,
-	password: string
+	address: string
 }
 ```
 
@@ -153,18 +159,24 @@ Returns: 1 means true
 
 ---
 
-### [GET] Prisoners
+### [GET] Prisoners by ID
 
 #### URL:
 
 ```
 [
 	{
-		id: integer,
-		name: string,
-		prison_id: integer,
-		canHaveWorkLeave: boolean //0 - false, 1 - true
-	},
+			prisoner_id: integer,
+			name: string,
+			gender: string,
+			prison_id: integer,
+			canHaveWorkLeave: boolean //0 - false, 1 - true,
+			skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
+	}
 	.
 	.
 	.
@@ -178,21 +190,23 @@ Returns: 1 means true
 #### URL:
 
 ```
-{
-	id: integer,
-	name: string,
-	prison_id: integer,
-	canHaveWorkLeave: boolean //0 - false, 1 - true
-	skills: [
-		{
-			id: integer,
-			name: string
-		},
-		.
-		.
-		.
-	]
-}
+[
+	{
+			prisoner_id: integer,
+			name: string,
+			gender: string,
+			prison_id: integer,
+			canHaveWorkLeave: boolean //0 - false, 1 - true,
+			skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
+	}
+	.
+	.
+	.
+]
 ```
 
 ---
@@ -202,10 +216,22 @@ Returns: 1 means true
 #### URL:
 
 ```
-{
-	name: string,
-	prison_id: integer
-}
+[
+	{
+			name: string,
+			gender: string,
+			prison_id: integer,
+			canHaveWorkLeave: boolean //0 - false, 1 - true,
+			skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
+	}
+	.
+	.
+	.
+]
 ```
 
 Returns:
@@ -223,11 +249,23 @@ Returns:
 #### URL:
 
 ```
-   {
-	name: string,
-	prison_id: integer,
-	canHaveWorkLeave: boolean // true or false
-}
+[
+	{
+			prisoner_id: integer,
+			name: string,
+			gender: string,
+			prison_id: integer,
+			canHaveWorkLeave: boolean //0 - false, 1 - true,
+			skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
+	}
+	.
+	.
+	.
+]
 ```
 
 Returns:
@@ -254,30 +292,19 @@ Returns: 1 means true
 
 ---
 
-### [GET] Skills
 
-#### URL:
-
-```
-[
-	{
-		id: integer,
-		name: string
-	},
-	.
-	.
-	.
-]
-```
-
-### [GET] Skills By ID
+### [GET] Skills By Prisoner ID
 
 #### URL:
 
 ```
 {
-	id: integer,
-	name: string
+	prisoner_id: integer,
+	skills: [ 
+				skill: string,
+				skill: string,
+				skill: string
+			]
 }
 ```
 
@@ -287,7 +314,7 @@ Returns: 1 means true
 
 ```
 {
-	name: string,
+	skill: string,
 	prisoner_id: integer
 }
 ```
@@ -330,7 +357,7 @@ Returns: 1 means true
 
 ---
 
-### [DEL] Skills by ID
+### [DEL] Skills by Prisoner ID
 
 #### URL:
 
