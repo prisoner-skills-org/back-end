@@ -13,6 +13,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/api/auth", authRouter);
+// server.use("/api/", authenticate, adminRouter);
 
 server.get("/", (req, res) => {
   res.send("It's alive!");

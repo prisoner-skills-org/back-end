@@ -84,10 +84,9 @@ Returns:
 ```
 [
 	{
-		id: integer,
-		username: string,
-		address: string,
-		name: string
+		prison_id: integer,
+		name: string,
+		address: string
 	},
 	.
 	.
