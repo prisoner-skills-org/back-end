@@ -3,7 +3,7 @@ exports.up = function(knex) {
     skills.increments();
 
     skills
-      .string("skill", 255)
+      .string("name", 255)
       .notNullable()
       .unique();
 

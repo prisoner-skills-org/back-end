@@ -7,8 +7,8 @@ describe("POST /register", () => {
     return request(server)
       .post("/api/auth/register")
       .send({
-        username: "kilo20",
-        password: "pass20"
+        username: "admin1",
+        password: "admin1"
       })
       .then(res => {
         expect(res.type).toMatch(/json/);
@@ -37,34 +37,10 @@ describe("POST /register", () => {
       return request(server)
         .post("/api/auth/login")
         .send({
-          username: "kilo1",
+          username: "admin1",
           password: "pass1"
         })
         .then(res => {
           expect(res.status).toBe(200);
         });
     });
-
-  // test 4
-  describe("GET /jokes", () => {
-    it("returns JSON", () => {
-    return request(server)
-      .post("/api/jokes")
-      .send({
-        username: "kilo20",
-        password: "pass20"
-      })
-      .then(res => {
-        expect(res.type).toMatch(/json/);
-      });
-  });
-
-    //test 5
-    it("returns 400 no token", () => {
-      return request(server)
-        .get("/api/jokes")
-        .then(res => {
-          expect(res.status).toBe(400);
-        });
-    });
-  });

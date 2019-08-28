@@ -6,11 +6,11 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex("skills").insert([
         {
-          skill: "Interior painting",
+          name: "Interior painting",
           prisoner_id: 1
         },
         {
-          skill: "Cleaning",
+          name: "Cleaning",
           prisoner_id: 2
         }
       ]);

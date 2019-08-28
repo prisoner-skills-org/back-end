@@ -2,9 +2,13 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const secrets = require("../config/secrets");
+
 const usersDb = require("../users/users-model");
 const prisonsDb = require("../prisons/prisonsModel");
-const secrets = require("../config/secrets");
+const prisonersDb = require("../prisoners/prisonersModel");
+const skillsDb = require("../skills/skillsModel");
+
 
 router.get("/users", (req, res) => {
   usersDb
@@ -31,6 +35,17 @@ router.get("/prisons", (req, res) => {
 router.get("/prisoners", (req, res) => {
   prisonersDb
     .find()
+    .then(prisoners => {
+      res.status(200).json(prisoners);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+router.get("/prisoners/:id", (req, res) => {
+  prisonersDb
+    .findById()
     .then(prisoners => {
       res.status(200).json(prisoners);
     })

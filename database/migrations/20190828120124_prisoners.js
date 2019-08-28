@@ -19,6 +19,7 @@ exports.up = function(knex) {
       .inTable("prisons")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
+
   });
 };
 
