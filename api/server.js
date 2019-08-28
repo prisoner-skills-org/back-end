@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 
 const authenticate = require('../auth/authenticate-middleware.js');
 const authRouter = require('../auth/auth-router.js');
+const prisonsRouter = require("../prisons/prisonsRouter.js");
 
 const server = express();
 
@@ -13,7 +14,7 @@ server.use(cors());
 server.use(express.json());
 
 server.use("/api/auth", authRouter);
-// server.use("/api/", authenticate, adminRouter);
+server.use("/api/prisons", authenticate, prisonsRouter);
 
 server.get("/", (req, res) => {
   res.send("It's alive!");

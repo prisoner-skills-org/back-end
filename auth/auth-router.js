@@ -3,6 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const usersDb = require("../users/users-model");
+const prisonsDb = require("../prisons/prisonsModel");
 const secrets = require("../config/secrets");
 
 router.get("/users", (req, res) => {
@@ -15,6 +16,40 @@ router.get("/users", (req, res) => {
       res.status(500).json(error);
     });
 });
+
+router.get("/prisons", (req, res) => {
+  prisonsDb
+    .find()
+    .then(prisons => {
+      res.status(200).json(prisons);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+router.get("/prisoners", (req, res) => {
+  prisonersDb
+    .find()
+    .then(prisoners => {
+      res.status(200).json(prisoners);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+router.get("/skills", (req, res) => {
+  skillsDb
+    .find()
+    .then(skills => {
+      res.status(200).json(skills);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
 
 router.post("/register", (req, res) => {
   let user = req.body;

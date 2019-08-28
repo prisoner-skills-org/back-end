@@ -4,35 +4,35 @@ module.exports = {
   add,
   find,
   findById,
-  findByName, 
-  update, 
+  findByName,
+  update,
   remove
 };
 
 function findByName(name) {
-  return db("prisons")
+  return db("prisoners")
     .where("name", name)
     .first();
 }
 
 function find() {
-  return db("prisons").select("id", "name");
+  return db("prisoners").select("id", "name", "gender", "canHaveWorkLeave", "skills", "prison_id");
 }
 
 function findById(id) {
-  return db("prisons")
+  return db("prisoners")
     .where("id", id)
     .first();
 }
 
-async function add(prison) {
-  const [id] = await db("prisons").insert(prison);
+async function add(prisoner) {
+  const [id] = await db("prisoners").insert(prisoner);
 
   return findById(id);
 }
 
 async function update(changes, id) {
-  await db("prisons")
+  await db("prisoners")
     .where({ id })
     .update(changes);
   return findById(id);
@@ -40,8 +40,8 @@ async function update(changes, id) {
 
 async function remove(id) {
   const delPrison = await findById(id);
-  const del_ = await db("prisons")
+  const del_ = await db("prisoners")
     .where({ id })
     .del();
-  return del_ ? delPrison : null;
+  return del_ ? delPrisoner : null;
 }
