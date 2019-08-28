@@ -115,7 +115,7 @@ function getJwt(user) {
   };
 
   const options = {
-    expiresIn: "8h"
+    expiresIn: "7d"
   };
 
   return jwt.sign(payload, secrets.jwtSecret, options);

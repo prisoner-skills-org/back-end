@@ -15,8 +15,8 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/api/auth", authRouter);
-server.use("/api/prisons", authenticate, prisonsRouter, prisonersRouter, skillsRouter);
+server.use("/api/", authRouter);
+server.use("/api/auth", authenticate, prisonsRouter, prisonersRouter, skillsRouter);
 
 server.get("/", (req, res) => {
   res.send("It's alive!");

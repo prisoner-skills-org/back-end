@@ -8,12 +8,12 @@ exports.seed = function(knex) {
         {
           name: "DC Central Detention Facility",
           address: "1901 D St SE, Washington, DC 20003",
-          user_id: 1
+          user_id: 2
         },
         {
           name: "Arlington County Jail",
           address: "1435 N Courthouse Rd, Arlington, VA 22201",
-          user_id: 2
+          user_id: 3
         }
       ]);
     });

@@ -16,7 +16,7 @@ function findByName(name) {
 }
 
 function find() {
-  return db("prisons").select("id", "name");
+  return db("prisons").select("id", "name", "address");
 }
 
 function findById(id) {
