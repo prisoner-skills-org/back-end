@@ -136,7 +136,7 @@ Requires the following in JSON body:
 
 #### URL: https://prisoners-bw.herokuapp.com/api/prisons/1
 
-Returns: 1 means true
+Returns:
 
 ```
 {
@@ -219,7 +219,7 @@ Returns:
 
 ```
 {
-     "id": 4,
+ "id": 4,
   "name": "John Smith",
   "gender": "Male",
   "canHaveWorkLeave": 1,
@@ -231,47 +231,27 @@ Returns:
 
 ### [PUT] Prisoners by ID
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/prisoners/1
+
+Required in JSON body
 
 ```
-[
-	{
-			prisoner_id: integer,
-			name: string,
-			gender: string,
-			prison_id: integer,
-			canHaveWorkLeave: boolean //0 - false, 1 - true,
-			skills: [
-				skill: string,
-				skill: string,
-				skill: string
-			]
-	}
-	.
-	.
-	.
-]
+{
+	"name" : "Alex Smith",
+	"gender" : "Male",
+	"canHaveWorkLeave" : true,
+	"prison_id" : 2
+}
 ```
 
 Returns:
 
 ```
 {
-   integer: //0 fail, 1 success
-}
-```
-
----
-
-### [DEL] Prisoners By ID
-
-#### URL:
-
-Returns: 1 means true
-
-```
-{
-    "removed": 1
+   	"name" : "Alex Smith",
+	"gender" : "Male",
+	"canHaveWorkLeave" : true,
+	"prison_id" : 2
 }
 ```
 
@@ -279,27 +259,38 @@ Returns: 1 means true
 
 ### [GET] Skills By Prisoner ID
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/prisoners/1/skills
 
 ```
 {
-	prisoner_id: integer,
-	skills: [
-				skill: string,
-				skill: string,
-				skill: string
-			]
+  "id": 1,
+  "name": "Billy Bob",
+  "gender": "Male",
+  "canHaveWorkLeave": 1,
+  "prison_id": 1,
+  "skills": [
+    {
+      "id": 1,
+      "name": "Interior painting",
+      "prisoner_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Cleaning",
+      "prisoner_id": 1
+    }
+  ]
 }
 ```
 
-### [POST] Skills By ID
+### [POST] Skills
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/skills
 
 ```
 {
-	skill: string,
-	prisoner_id: integer
+	"name" : "Structural Engineering",
+	"prisoner_id" : "4"
 }
 ```
 
@@ -307,7 +298,9 @@ Returns:
 
 ```
 {
-    "message": "Update Successful!"
+  "id": 5,
+  "name": "Structural Engineering",
+  "prisoner_id": 4
 }
 ```
 
@@ -315,13 +308,15 @@ Returns:
 
 ### [DEL] Prisoner By ID
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/prisoners/1
 
-Returns: 1 means true
+Returns:
 
 ```
 {
-    "removed": 1
+    "removed": {
+		prisoner object
+	}
 }
 ```
 
@@ -329,27 +324,31 @@ Returns: 1 means true
 
 ### [DEL] Prison By ID
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/prison/1
 
-Returns: 1 means true
+Returns:
 
 ```
 {
-    "removed": 1
+    "removed": {
+		prisoner object
+	}
 }
 ```
 
 ---
 
-### [DEL] Skills by Prisoner ID
+### [DEL] Skills by ID
 
-#### URL:
+#### URL: https://prisoners-bw.herokuapp.com/api/auth/skills/1
 
-Returns: 1 means true
+Returns:
 
 ```
 {
-    "removed": 1
+    "removed": {
+		prisoner object
+	}
 }
 ```
 
