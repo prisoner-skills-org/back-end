@@ -14,7 +14,7 @@ router.post("/prisons", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/prisons/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -32,7 +32,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/prisons/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
