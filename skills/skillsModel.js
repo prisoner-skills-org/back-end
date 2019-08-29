@@ -18,7 +18,7 @@ function findBySkill(skill) {
 function find() {
   return db("skills").select(
     "id",
-    "skill",
+    "name",
     "prisoner_id"
   );
 }

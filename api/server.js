@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const jwt = require("jsonwebtoken");
 
 const authenticate = require('../auth/authenticate-middleware.js');
-const authRouter = require('../auth/auth-router.js');
+const nonAuthRouter = require('../nonauth/nonAuthRouter.js');
 const prisonsRouter = require("../prisons/prisonsRouter.js");
 const prisonersRouter = require("../prisoners/prisonersRouter.js");
 const skillsRouter = require("../skills/skillsRouter.js");
@@ -15,7 +15,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/api/", authRouter);
+server.use("/api", nonAuthRouter);
 server.use("/api/auth", authenticate, prisonsRouter, prisonersRouter, skillsRouter);
 
 server.get("/", (req, res) => {

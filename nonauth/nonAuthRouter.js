@@ -39,13 +39,15 @@ router.get("/prisoners", (req, res) => {
       res.status(200).json(prisoners);
     })
     .catch(error => {
-      res.status(500).json(error);
+        res.status(500).json({ message: "you dun goofed" });
     });
 });
 
 router.get("/prisoners/:id", (req, res) => {
+  const { id } = req.params;
+
   prisonersDb
-    .findById()
+    .findById(id)
     .then(prisoners => {
       res.status(200).json(prisoners);
     })
@@ -57,6 +59,19 @@ router.get("/prisoners/:id", (req, res) => {
 router.get("/skills", (req, res) => {
   skillsDb
     .find()
+    .then(skills => {
+      res.status(200).json(skills);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
+});
+
+router.get("/skills/:id", (req, res) => {
+  const { id } = req.params;
+
+  skillsDb
+    .findById(id)
     .then(skills => {
       res.status(200).json(skills);
     })

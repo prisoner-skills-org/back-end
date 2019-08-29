@@ -2,16 +2,6 @@ const router = require("express").Router();
 
 const prisonersDb = require("../prisoners/prisonersModel");
 
-router.get("/", (req, res) => {
-  prisonersDb
-    .find()
-    .then(prisoners => {
-      res.status(200).json(prisoners);
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-});
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
