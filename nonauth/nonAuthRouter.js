@@ -9,7 +9,6 @@ const prisonsDb = require("../prisons/prisonsModel");
 const prisonersDb = require("../prisoners/prisonersModel");
 const skillsDb = require("../skills/skillsModel");
 
-
 router.get("/users", (req, res) => {
   usersDb
     .find()
@@ -39,7 +38,7 @@ router.get("/prisoners", (req, res) => {
       res.status(200).json(prisoners);
     })
     .catch(error => {
-        res.status(500).json({ message: "you dun goofed" });
+      res.status(500).json({ message: "you dun goofed" });
     });
 });
 
@@ -51,6 +50,19 @@ router.get("/skills", (req, res) => {
     })
     .catch(error => {
       res.status(500).json({ message: "you dun goofed" });
+    });
+});
+
+router.get("/prisons/:id", (req, res) => {
+  const { id } = req.params;
+
+  prisonsDb
+    .findById(id)
+    .then(prisons => {
+      res.status(200).json(prisons);
+    })
+    .catch(error => {
+      res.status(500).json(error);
     });
 });
 
@@ -70,7 +82,8 @@ router.get("/prisoners/:id", (req, res) => {
 router.get("/prisoners/:id/skills", (req, res) => {
   const { id } = req.params;
 
-  prisonersDb.findById(id)
+  prisonersDb
+    .findById(id)
     .then(prisoner => {
       prisonersDb
         .findSkillsByPrisoner(id)
@@ -98,7 +111,6 @@ router.get("/skills/:id", (req, res) => {
       res.status(500).json(error);
     });
 });
-
 
 router.post("/register", (req, res) => {
   let user = req.body;
