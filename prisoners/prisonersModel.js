@@ -5,6 +5,7 @@ module.exports = {
   find,
   findById,
   findByName,
+  findSkillsByPrisoner,
   update,
   remove
 };
@@ -16,13 +17,21 @@ function findByName(name) {
 }
 
 function find() {
-  return db("prisoners").select("id", "name", "gender", "canHaveWorkLeave", "prison_id");
+  return db("prisoners")
+  .select("id", "name", "gender", "canHaveWorkLeave", "prison_id")
 }
 
 function findById(id) {
   return db("prisoners")
     .where("id", id)
     .first();
+}
+
+function findSkillsByPrisoner(id) {
+  console.log(id)
+  return db("skills")
+    .where({ prisoner_id: id })
+    .select("*");
 }
 
 async function add(prisoner) {

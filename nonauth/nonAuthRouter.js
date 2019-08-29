@@ -43,6 +43,17 @@ router.get("/prisoners", (req, res) => {
     });
 });
 
+router.get("/skills", (req, res) => {
+  skillsDb
+    .find()
+    .then(skills => {
+      res.status(200).json(skills);
+    })
+    .catch(error => {
+      res.status(500).json({ message: "you dun goofed" });
+    });
+});
+
 router.get("/prisoners/:id", (req, res) => {
   const { id } = req.params;
 
@@ -56,14 +67,24 @@ router.get("/prisoners/:id", (req, res) => {
     });
 });
 
-router.get("/skills", (req, res) => {
-  skillsDb
-    .find()
-    .then(skills => {
-      res.status(200).json(skills);
+router.get("/prisoners/:id/skills", (req, res) => {
+  const { id } = req.params;
+
+  prisonersDb.findById(id)
+    .then(prisoner => {
+      prisonersDb
+        .findSkillsByPrisoner(id)
+        .then(skills => {
+          console.log(skills);
+          res.status(200).json({ ...prisoner, skills });
+          console.log(skills);
+        })
+        .catch(err => {
+          res.status(500).json(err);
+        });
     })
-    .catch(error => {
-      res.status(500).json(error);
+    .catch(err => {
+      res.status(500).json(err);
     });
 });
 
