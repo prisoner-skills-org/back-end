@@ -331,7 +331,7 @@ Returns:
 ```
 {
     "removed": {
-		prisoner object
+		prison object
 	}
 }
 ```
