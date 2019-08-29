@@ -3,23 +3,7 @@ const router = require("express").Router();
 const prisonersDb = require("../prisoners/prisonersModel");
 
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const prisoner = await prisonersDb.findById(id);
-
-    if (prisoner) {
-      res.json(prisoner);
-    } else {
-      res.status(404).json({ message: "Could not find prisoner with given id." });
-    }
-  } catch (err) {
-    res.status(500).json({ message: "Failed to get prisoner" });
-  }
-});
-
-router.post("/", async (req, res) => {
+router.post("/prisoners", async (req, res) => {
   const prisonerData = req.body;
 
   try {
@@ -30,7 +14,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/prisoners/:id", async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
 
@@ -48,7 +32,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/prisoners/:id", async (req, res) => {
   const { id } = req.params;
 
   try {

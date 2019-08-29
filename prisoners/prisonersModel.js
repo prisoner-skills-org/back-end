@@ -39,7 +39,7 @@ async function update(changes, id) {
 }
 
 async function remove(id) {
-  const delPrison = await findById(id);
+  const delPrisoner = await findById(id);
   const del_ = await db("prisoners")
     .where({ id })
     .del();
