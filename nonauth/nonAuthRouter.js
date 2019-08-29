@@ -75,9 +75,7 @@ router.get("/prisoners/:id/skills", (req, res) => {
       prisonersDb
         .findSkillsByPrisoner(id)
         .then(skills => {
-          console.log(skills);
           res.status(200).json({ ...prisoner, skills });
-          console.log(skills);
         })
         .catch(err => {
           res.status(500).json(err);

@@ -12,6 +12,14 @@ exports.seed = function(knex) {
         {
           username: "admin2",
           password: "pass2"
+        },
+        {
+          username: "admin3",
+          password: "pass3"
+        },
+        {
+          username: "admin4",
+          password: "pass4"
         }
       ]);
     });

@@ -5,7 +5,6 @@ exports.up = function(knex) {
     skills
       .string("name", 255)
       .notNullable()
-      .unique();
 
     skills
       .integer("prisoner_id")
